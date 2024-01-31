@@ -1,8 +1,8 @@
 import Router from 'express'
 import axios from 'axios'
 import fs from 'fs'
-// import { PrismaClient } from '@prisma/client'
-// const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 const router = Router()
 
 // Описываем функцию, которая будет обрабатывать GET запросы на адрес '/'
@@ -24,6 +24,74 @@ router.get('/', function (req, res) {
 //   })
 //   res.send({ user })
 // })
+router.get('/users', async function (req, res) {
+  const data = await prisma.user.findMany({
+    // include:{posts:true},
+    select: {
+      id: true,
+      profile: true,
+      posts: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          created_at: true,
+          categories: true
+        }
+      }
+    },
+    where: {
+      
+    }
+  })
+  res.send({data})
+})
+
+router.get('/posts', async function (req, res) {
+  const data = await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      created_at: true,
+      categories: true,
+      author: {
+        select: {
+          id: true,
+          profile: true
+        }
+      }
+    },
+    where: {
+      // published: true,
+    }
+  })
+  res.send({ data })
+})
+
+router.get('/posts/starts/:text', async function (req, res) {
+  const data = await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      created_at: true,
+      author: {
+        select: {
+          id: true,
+          first_name: true,
+          last_name: true,
+        }
+      }
+    },
+    where: {
+      content: {
+        startsWith:req.params.text
+      }
+    }
+  })
+  res.send({ data })
+})
 
 router.get('/mydata', function (req, res) {
   const data = fs.readFileSync('static/data.json', 'utf8')
