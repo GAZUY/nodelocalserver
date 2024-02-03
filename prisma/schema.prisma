@@ -7,13 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model News {
+  id   Int    @id @default(autoincrement())
+  text String?
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-}
-
-model News {
-  id    Int     @id @default(autoincrement())
-  text String?  
 }
