@@ -10,9 +10,17 @@ router.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-// router.get('/users', async function (req, res) {
-//   const data = await prisma.user.findMany()
-//   res.send({data})
+router.get('/user', async function (req, res) {
+  const data = await prisma.user.findMany()
+  res.send({data})
+})
+// router.post ('/user', async function (reg,res) {
+//   const user = await prisma.user.create({
+//     data: {
+//       name: reg.body.name
+//     }
+//   })
+//   res.send({user})
 // })
 
 // router.get('/user/:name/:email', async function (req, res) {
@@ -24,28 +32,28 @@ router.get('/', function (req, res) {
 //   })
 //   res.send({ user })
 // })
-router.get('/users', async function (req, res) {
-  const data = await prisma.user.findMany({
-    // include:{posts:true},
-    select: {
-      id: true,
-      profile: true,
-      posts: {
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          created_at: true,
-          categories: true
-        }
-      }
-    },
-    where: {
+// router.get('/users', async function (req, res) {
+//   const data = await prisma.user.findMany({
+//     // include:{posts:true},
+//     select: {
+//       id: true,
+//       profile: true,
+//       posts: {
+//         select: {
+//           id: true,
+//           title: true,
+//           content: true,
+//           created_at: true,
+//           categories: true
+//         }
+//       }
+//     },
+//     where: {
       
-    }
-  })
-  res.send({data})
-})
+//     }
+//   })
+//   res.send({data})
+// })
 
 router.get('/posts', async function (req, res) {
   const data = await prisma.post.findMany({
