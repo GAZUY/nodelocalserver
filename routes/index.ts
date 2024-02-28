@@ -14,6 +14,24 @@ router.get('/user', async function (req, res) {
   const data = await prisma.user.findMany()
   res.send({data})
 })
+
+router.post('/add', async function (req, res) {
+  try {
+    const result = await prisma.user.create({
+      data: req.body
+    })
+    res.send({result})
+  } catch (e) {
+    res.status(500).send({e})
+  }
+})
+
+router.get('/get', async function (req, res) {
+  
+  res.send({ok:'adas'})
+})
+
+
 // router.post ('/user', async function (reg,res) {
 //   const user = await prisma.user.create({
 //     data: {

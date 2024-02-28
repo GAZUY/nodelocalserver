@@ -7,10 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model News {
-//   id   Int    @id @default(autoincrement())
-//   text String
-// }
+model News {
+  id   Int    @id @default(autoincrement())
+  text String
+}
 
 // model User {
 //   id    Int     @id @default(autoincrement())
@@ -18,12 +18,12 @@ datasource db {
 //   name  String?
 // }
 
-// model Wie_haist_du {
-//   id       Int     @id @default(autoincrement())
-//   kukuruza String?
+model Wie_haist_du {
+  id       Int     @id @default(autoincrement())
+  kukuruza String?
 
-//   @@map("Wie haist du")
-// }
+  @@map("Wie haist du")
+}
 model User {
   id         Int    @id @default(autoincrement())
   email      String   @unique
