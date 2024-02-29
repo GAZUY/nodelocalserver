@@ -6,54 +6,61 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model user {
+  id            Int    @id @default(autoincrement())
+  email         String   @unique
+  password_hash String
 
-model News {
-  id   Int    @id @default(autoincrement())
-  text String
 }
 
-// model User {
+// model News {
+//   id   Int    @id @default(autoincrement())
+//   text String
+// }
+
+// model Register {
+//   id       Int     @id @default(autoincrement())
+//   email    String  @unique
+//   password String?
+//   text     String?
+// }
+
+// model User1 {
 //   id    Int     @id @default(autoincrement())
-//   email String  @unique
+//   email String
 //   name  String?
 // }
 
-model Wie_haist_du {
-  id       Int     @id @default(autoincrement())
-  kukuruza String?
+// model Wie_haist_du {
+//   id       Int     @id @default(autoincrement())
+//   kukuruza String?
 
-  @@map("Wie haist du")
-}
-model User {
-  id         Int    @id @default(autoincrement())
-  email      String   @unique
-  hash       String   @map("password_hash")
-  uuid       String   @default(uuid())
-  first_name String?  @db.VarChar(55)
-  last_name  String?  @db.VarChar(55)
-  age        Int?
-  role       Role     @default(USER)
-  posts      Post[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+//   @@map("Wie haist du")
+// }
 
-  @@map("users")
-}
+// model posts {
+//   id         String   @id
+//   title      String
+//   content    String
+//   published  Boolean
+//   author_id  String
+//   created_at DateTime @default(now())
+//   updated_at DateTime
+// }
 
-model Post {
-  id         Int    @id @default(autoincrement())
-  title      String
-  content    String
-  published  Boolean
-  author_id  Int
-  author     User     @relation(fields: [author_id], references: [id])
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+// model users {
+//   id            String   @id @db.Uuid
+//   email         String   @unique
+//   password_hash String
+//   first_name    String?
+//   last_name     String?
+//   age           Int?
+//   role          Role     @default(USER)
+//   created_at    DateTime @default(now())
+//   updated_at    DateTime
+// }
 
-  @@map("posts")
-}
-
-enum Role {
-  USER
-  ADMIN
-}
+// enum Role {
+//   USER
+//   ADMIN
+// }
